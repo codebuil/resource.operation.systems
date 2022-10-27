@@ -24,6 +24,16 @@ mkdir $a/usr/lib/$b
 cp /bin/sh $a/bin
 cp /bin/bash $a/bin
 cp /bin/ls $a/bin
+cp /bin/cp $a/bin
+cp /bin/echo $a/bin
+cp /usr/bin/printf $a/bin
+cp /bin/rm $a/bin
+cp /bin/mkdir $a/bin
+cp /usr/bin/cd $a/bin
+cp /usr/bin/ldd $a/bin
+cp /usr/bin/awk $a/bin
+cp /bin/grep $a/bin
+cp /bin/help $a/bin
 cp ../hello $a/bin
 cd $a
 a=$(pwd)
