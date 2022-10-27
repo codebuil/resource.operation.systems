@@ -1,9 +1,13 @@
 #!/bin/sh
 a=./roots
+n= 
+m= 
+j= 
 b=arm-linux-gnueabihf
 x=x86_64-linux-gnueabihf
 printf "\ec\e[42;30m\ncreate mini system\n"
-gcc-4.4 -march=armv4t  hello.c -o hello
+gcc hello.c -o hello
+gcc ldd_filter.c -o ldd_filter
 mkdir $a
 cd $a
 a=./
@@ -14,26 +18,26 @@ mkdir $a/lib
 mkdir $a/home
 mkdir $a/home/pi
 mkdir $a/usr/lib
+mkdir $a/usr/lib/$b
 mkdir $a/lib/$b
 mkdir $a/usr/lib/$b
 cp /bin/sh $a/bin
 cp /bin/bash $a/bin
 cp /bin/ls $a/bin
 cp ../hello $a/bin
-cp /usr/lib/$b/libarmmem.so $a/usr/lib/$b/libarmmem.so
-cp /lib/$b/libc.so.6 $a/lib/$b/libc.so.6
-cp /lib/ld-linux-armhf.so.3 $a/lib/ld-linux-armhf.so.3
-cp /usr/lib/$b/libarmmem.so $a/usr/lib/$b/libarmmem.so
-cp /lib/$b/libtinfo.so.5 $a/lib/$b/libtinfo.so.5
-cp /lib/$b/libdl.so.2 $a/lib/$b/libdl.so.2 
-cp /lib/$b/libc.so.6 $a/lib/$b/libc.so.6
-cp /lib/ld-linux-armhf.so.3 $a/lib/ld-linux-armhf.so.3
-cp /usr/lib/$b/libarmmem.so $a/usr/lib/$b/libarmmem.so
-cp /lib/$b/libc.so.6 $a/lib/$b/libc.so.6
-cp /lib/ld-linux-armhf.so.3 $a/lib/ld-linux-armhf.so.3
-cp /lib/$b/libselinux.so.1 $a/lib/$b/libselinux.so.1
-cp /lib/$b/libpcre.so.3 $a/lib/$b/libpcre.so.3
-cp /lib/$b/libpthread.so.0 $a/lib/$b/libpthread.so.0
+cd $a
+a=$(pwd)
+cd ./bin
+for n in $(ls);
+do
+	ldd ./$n > /tmp/filter.txt
+	while read m
+	do
+		printf "%s" "$m" | ../../ldd_filter > /tmp/filter2.txt
+		j=$(cat /tmp/filter2.txt)
+		cp "$j" "..$j";
+	done</tmp/filter.txt;
+done
 cd $a
 sudo chroot $(pwd) /bin/bash
 
