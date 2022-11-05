@@ -29,7 +29,7 @@ int main(){
 	printf("%s\n",ss);
 	sprintf(e,"sh -c './cgi-bin/sys.sh %s'",ss);
 	system(e);
-	sprintf(e,"rmdir %s",ss);
+	sprintf(e,"sudo mv %s \"/lost+found/\"",ss);
 	system(e);
 	printf("http:/localhost:8080/%s.zip",ss);
 	return 0;
