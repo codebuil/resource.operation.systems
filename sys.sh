@@ -1,11 +1,12 @@
 #!/bin/sh
-a=./roots
+a=./$1
+z=$(pwd)/$1
 n= 
 m= 
 j= 
 b=arm-linux-gnueabihf
 x=x86_64-linux-gnueabihf
-printf "\ec\e[42;30m\ncreate mini system\n"
+#printf "\ec\e[42;30m\ncreate mini system\n"
 gcc hello.c -o hello
 gcc ldd_filter.c -o ldd_filter
 mkdir $a
@@ -49,5 +50,6 @@ do
 	done</tmp/filter.txt;
 done
 cd $a
-sudo chroot $(pwd) /bin/bash
-
+echo $z
+cd ../
+zip $z.zip -r $z
