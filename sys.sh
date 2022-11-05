@@ -6,8 +6,6 @@ m=
 j= 
 b=arm-linux-gnueabihf
 x=x86_64-linux-gnueabihf
-#printf "\ec\e[42;30m\ncreate mini system\n"
-gcc hello.c -o hello
 gcc ldd_filter.c -o ldd_filter
 mkdir $a
 cd $a
@@ -24,32 +22,26 @@ mkdir $a/lib/$b
 mkdir $a/usr/lib/$b
 cp /bin/sh $a/bin
 cp /bin/bash $a/bin
-cp /bin/ls $a/bin
-cp /bin/cp $a/bin
-cp /bin/echo $a/bin
-cp /usr/bin/printf $a/bin
-cp /bin/rm $a/bin
-cp /bin/mkdir $a/bin
-cp /usr/bin/cd $a/bin
-cp /usr/bin/ldd $a/bin
-cp /usr/bin/awk $a/bin
-cp /bin/grep $a/bin
-cp /bin/help $a/bin
-cp ../hello $a/bin
+printf "$2," > /tmp/$1.txt
+cat /tmp/$1.txt | sed 's/,/\n/g' > /tmp/B$1.txt
+while read n;
+do
+	printf "$n"
+	cp /bin/$n $a/bin;
+done</tmp/B$1.txt;
 cd $a
 a=$(pwd)
 cd ./bin
 for n in $(ls);
 do
-	ldd ./$n > /tmp/filter.txt
+	ldd ./$n > /tmp/$1.txt
 	while read m
 	do
-		printf "%s" "$m" | ../../ldd_filter > /tmp/filter2.txt
-		j=$(cat /tmp/filter2.txt)
+		printf "%s" "$m" | ../../ldd_filter > /tmp/A$1.txt
+		j=$(cat /tmp/A$1.txt)
 		cp "$j" "..$j";
-	done</tmp/filter.txt;
+	done</tmp/$1.txt;
 done
 cd $a
-echo $z
 cd ../
 zip $z.zip -r $z

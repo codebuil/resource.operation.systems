@@ -4,9 +4,10 @@
 			my CGI server
 		</title>
 	</head>
-	<body bgcolor="000FF00#" style="color:white">
-		<input ID="input1"  style="color:black">
-			
+	<body bgcolor="000FF00#" style="color:black">
+click run and wait a few minuts for file placement<br>
+		<input ID="input1"  style="color:black" value="ls,mkdir,cp,rm,clear">
+		
 		</input>
 		<p>
 		<button onclick="shelles()" style="color:black">
@@ -15,9 +16,9 @@
 		</p>
 		<script>
 			function shelles(){
-				b = document.getElementById('input1').value
-				a = b.replace(/ /g,'_')
-				window.location='./cgi-bin/distro'
+				b = document.getElementById('input1').value;
+				a = b.replace(/ /g,'_');
+				window.location='./cgi-bin/distro?'+a;
 			}
 		</script>	
 	</body>
