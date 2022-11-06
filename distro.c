@@ -27,9 +27,9 @@ int main(){
 	c=getenv(envi);
 	strcpy(envi,c);
 	printf("%s\n",ss);
-	sprintf(e,"sh -c './cgi-bin/sys.sh %s'",ss);
+	sprintf(e,"sh -c './cgi-bin/sys.sh %s %s'",ss,envi);
 	system(e);
-	sprintf(e,"sudo mv %s \"/lost+found/\"",ss);
+	sprintf(e,"rm -r %s ",ss);
 	system(e);
 	printf("http:/localhost:8080/%s.zip",ss);
 	return 0;
